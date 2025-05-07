@@ -1,0 +1,6 @@
+1. docker compose up -d
+
+port 2181 : zookeeper
+port 9092 : kafka
+
+
