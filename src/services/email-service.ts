@@ -1,7 +1,10 @@
 import nodemailer from 'nodemailer';
 import config from '../config';
 import { getJobApplicationTemplate } from '../templates/email.template';
+import path from 'path';
 const template = getJobApplicationTemplate();
+const projectRoot = process.cwd();
+const resumePath = path.join(projectRoot, '/data/Harshal_Resume.pdf');
 
 const transporter = nodemailer.createTransport({
     service: config.node_mailer_service,
@@ -27,7 +30,15 @@ const sendEmail = async (email: string) => {
         from: `"Harshal Kahar" <${config.email_user}>`,
         to: email,
         subject,
-        html
+        html,
+        //Kafka's default maximum message size is 1 MB (1,048,576 bytes) so you do not send attachment with mail
+        // attachments: [
+        //     {
+        //         filename: 'Harshal_Resume.pdf',
+        //         path: resumePath,
+        //         contentType: 'application/pdf'
+        //     }
+        // ]
     };
 
     // Send email

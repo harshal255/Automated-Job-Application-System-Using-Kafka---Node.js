@@ -4,7 +4,7 @@ import sendEmail from '../services/email-service';
 
 export const sendJobApplication = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const email = "restartmyself@yopmail.com";
+        const email = "restartmyself21@gmail.com";
         await sendEmail(email);
         res.status(200).json({
             success: true,

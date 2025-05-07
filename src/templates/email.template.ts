@@ -57,7 +57,7 @@ export const getJobApplicationTemplate = (recipientName?: string) => ({
 
       <h3 style="color: #2d3748; margin-top: 24px;">Additional Resources:</h3>
       <div style="display: flex; gap: 12px; margin-bottom: 24px;">
-        <a href="https://drive.google.com/file/d/1nKWgsUevG13pxmGzygsRy09x_kSBp_e6/view" 
+        <a href="https://drive.google.com/file/d/1Om2U-iRkeDxi1bgzlbEiybsDJ6_xsTGp/view?usp=drive_link" 
          >
           View Resume
         </a>
@@ -80,6 +80,7 @@ export const getJobApplicationTemplate = (recipientName?: string) => ({
         <p>Connect with me:</p>
         <p>Email: ${config.email_user}</p>
         <p>Portfolio: <a href="https://harshalkahar.vercel.app" style="color: #3182ce;">harshalkahar.vercel.app</a></p>
+        <p>Resume: <a href="https://drive.google.com/file/d/1Om2U-iRkeDxi1bgzlbEiybsDJ6_xsTGp/view?usp=drive_link" style="color: #3182ce;">My Resume</a></p>
       </div>
     </div>
   `
