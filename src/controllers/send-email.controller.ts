@@ -1,6 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import { initializeProducer, sendApplicationMessage } from '../utils/kafkaProducer';
 import sendEmail from '../services/email-service';
+import { parseCSV } from '../helpers';
+import { Recruiter } from '../types';
+import path from 'path';
+const projectRoot = process.cwd();
+const CSV_PATH = path.join(projectRoot, '/data/company_wise_hr_contacts.csv');
 
 export const sendJobApplication = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -15,22 +20,28 @@ export const sendJobApplication = async (req: Request, res: Response, next: Next
     }
 };
 
-const RECIPIENTS = [
-    'restartmyself1@yopmail.com',
-    'restartmyself2@yopmail.com',
-    'restartmyself3@yopmail.com',
-    'restartmyself4@yopmail.com',
-    'restartmyself5@yopmail.com',
-    'restartmyself6@yopmail.com',
-];
+// const RECIPIENTS = [
+//     'restartmyself1@yopmail.com',
+//     'restartmyself2@yopmail.com',
+//     'restartmyself3@yopmail.com',
+//     'restartmyself4@yopmail.com',
+//     'restartmyself5@yopmail.com',
+//     'restartmyself6@yopmail.com',
+// ];
+
+
 
 export const sendBulkApplications = async (req: Request, res: Response, next: NextFunction) => {
     try {
+        const limit = 461;//add 461 4 times
         // Initialize producer once before sending messages
         await initializeProducer();
 
+        const recruiters = await parseCSV<Recruiter>(CSV_PATH);
+        const emails = recruiters.slice(0, Number(limit)).map((recruter: Recruiter) => recruter.Email);
+
         // Send messages sequentially instead of parallel to avoid overloading
-        for (const email of RECIPIENTS) {
+        for (const email of emails) {
             try {
                 await sendApplicationMessage(email);
             } catch (error) {
@@ -42,7 +53,7 @@ export const sendBulkApplications = async (req: Request, res: Response, next: Ne
         res.status(202).json({
             success: true,
             message: 'Job applications are being processed',
-            recipients: RECIPIENTS.length
+            recipients: emails.length
         });
 
         // Don't disconnect immediately - keep connection for subsequent requests
