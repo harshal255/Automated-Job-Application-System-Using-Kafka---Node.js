@@ -1,0 +1,91 @@
+{
+	"info": {
+		"_postman_id": "da2fb7da-42b3-4eb6-bf81-9ed4692d2f4c",
+		"name": "send-mail-to-all-emails",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23409201",
+		"_collection_link": "https://team-domain-389.postman.co/workspace/Team-Workspace~6402597b-1475-4f95-8403-8dcbe60a886d/collection/23409201-da2fb7da-42b3-4eb6-bf81-9ed4692d2f4c?action=share&source=collection_link&creator=23409201"
+	},
+	"item": [
+		{
+			"name": "Get Recuters Email",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/recruiters",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"recruiters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get talent-acquisitions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/talent-acquisition",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"talent-acquisition"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "send application",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/send-application",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"send-application"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "send bulk application",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/send-bulk-application",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"send-bulk-application"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
