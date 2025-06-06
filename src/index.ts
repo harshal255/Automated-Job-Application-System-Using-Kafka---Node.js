@@ -5,6 +5,10 @@ import emailRouter from "./routes/send-email.routes";
 import { disconnectProducer, initializeProducer } from './utils/kafkaProducer';
 import { startEmailConsumer } from './utils/kafkaConsumer';
 import config from './config';
+import ErrorHandler from './middlewares/errorHandler';
+import responseMiddleware from './middlewares/responseMiddleware';
+import cors from 'cors';
+import extractEmailRouter from "./routes/extract-email.routes";
 
 
 // Initialize Express app
@@ -15,6 +19,8 @@ const PORT = config.port;
 // Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+app.use(responseMiddleware);
 
 // Health check endpoint
 app.get('/', (req: Request, res: Response) => {
@@ -30,19 +36,11 @@ app.get('/', (req: Request, res: Response) => {
 app.use("/api", recruterRoute);
 app.use("/api", talentAcquisitionRoute);
 app.use('/api', emailRouter);
+app.use('/api', extractEmailRouter);
 
 
-// Central Error Handler
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-    console.error('[ERROR]', err.stack);
-
-    res.status(500).json({
-        status: 'error',
-        message: process.env.NODE_ENV === 'production'
-            ? 'Something went wrong!'
-            : err.message
-    });
-});
+// ERROR HANDLER MIDDLEWARE (Last middleware to use)
+app.use(ErrorHandler);
 
 
 

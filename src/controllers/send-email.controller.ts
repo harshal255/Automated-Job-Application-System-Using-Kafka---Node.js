@@ -5,7 +5,7 @@ import { parseCSV } from '../helpers';
 import { Recruiter } from '../types';
 import path from 'path';
 const projectRoot = process.cwd();
-const CSV_PATH = path.join(projectRoot, '/data/company_wise_hr_contacts.csv');
+const CSV_PATH = path.join(projectRoot, '/data/sheet2.csv');
 
 export const sendJobApplication = async (req: Request, res: Response, next: NextFunction) => {
     try {
